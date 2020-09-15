@@ -1,0 +1,32 @@
+{
+  "name": "plushie",
+  "version": "1.0.0",
+  "description": "It will be bot for stats, but seriously i don't know",
+  "main": "index.js",
+  "dependencies": {
+    "cache": "^2.3.1",
+    "chalk": "^4.1.0",
+    "discord.js": "^12.3.1",
+    "moment": "^2.27.0",
+    "ms": "^2.1.2",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev:watch": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neyviin/Plushie.git"
+  },
+  "keywords": [
+    "Discord",
+    "bot"
+  ],
+  "author": "Neyvin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Neyviin/Plushie/issues"
+  },
+  "homepage": "https://github.com/Neyviin/Plushie#readme"
+}
