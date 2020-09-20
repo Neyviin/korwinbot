@@ -116,11 +116,10 @@ channel.send(fakty[randomIndex])
 }
 
 
-
 if (cmd === "pomoc" ||  cmd === "help" || cmd === "info") {
-  let avatar = (client.user.displayAvatarURL({size: 4096}))
-  let link1 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
-  let link2 = "https://discord.gg/R5PXXm3/"
+  let avatar = (client.user.displayAvatarURL({size: 4096}));
+  let link1 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot";
+  let link2 = "https://discord.gg/R5PXXm3/";
 const embed = new MessageEmbed()
 .setTitle("Moje komendy")
 .setAuthor(client.user.tag, avatar)
@@ -137,11 +136,10 @@ channel.send(embed)
 }
 
 if (cmd === "dodaj" || cmd === "add" || cmd === "invite") {
-  let link1 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
-  let link1920 = "https://discord.gg/R5PXXM3/"
+  let link30000 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
  let embed = new MessageEmbed()
  .setColor("BLUE")
-  .setDescription(`[Dodaj mnie!](${link1})`)
+  .setDescription(`[Dodaj mnie!](${link30000})`)
   channel.send(embed)
 }
 
@@ -234,16 +232,27 @@ if (!channel) msg.channel.send(args.join(" "))
     }
   
     if (cmd === "zdjecia" || cmd === "zdjecie" || cmd === "losowezdjecie" || cmd === "losowe") {
-      number = 29;
+      let number = 29;
       let imageNumber = Math.floor(Math.random()* 29) +1
      channel.send ( {files: ["./zdjecia korwina/" + imageNumber + ".png"]} )
     }
 
+    if (cmd === "ping") {
+      const ms = require("ms")
+  try {
+      const m = await msg.channel.send("Czekaj..."); // Make sure the async is written, top of the client.on("message", ...)
+      const embed = new MessageEmbed()
+      .setColor("RANDOM") // Tired of choosing the embed colors? Just type "RANDOM" on it!
+      .addField("⌛ Ping", `**${msg.createdTimestamp -  msg.createdTimestamp}ms**`)
+      .addField("⏲️ API", `**${Math.floor(client.ws.ping)}ms**`) // Use "client.ping" if your Discord.js is < 1.15.1 --- Use "client.ws.ping" if your Discord.js is > 12.0.0
+   return m.edit(`🏓 Pong!`, embed);
+    } catch (error) {
+      return msg.channel.send(`Something's not right: ${error.msg}`);
+
+      // Restart the bot as usual.
     
+  } // easy way.
+    }
 })
 
 client.login(token); 
-
-
-
-
