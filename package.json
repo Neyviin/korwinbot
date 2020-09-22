@@ -1,5 +1,5 @@
 {
-  "name": "plushie",
+  "name": "korwinbot",
   "version": "1.0.0",
   "description": "It will be bot for stats, but seriously i don't know",
   "main": "index.js",
@@ -17,8 +17,7 @@
     "start": "node index.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Neyviin/Plushie.git"
+    "type": "git"
   },
   "keywords": [
     "Discord",

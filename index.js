@@ -1,13 +1,12 @@
 const chalk = require("chalk")
-const { Client, MessageEmbed, MessageAttachment  } = require('discord.js');
+const { Client, MessageEmbed, MessageAttachment, Message  } = require('discord.js');
 
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
 const Constants = require('./node_modules/discord.js/src/util/Constants.js')
 Constants.DefaultOptions.ws.properties.$browser = `Discord iOS`
 
-const { token, prefix, prefix2, prefix3 } = require("./source12/config/config.js")
-
+const { token, prefix } = require("./source12/config/config.js")
 
 const log = console.log
 const moment = require('moment')
@@ -26,7 +25,6 @@ client.on('ready', () => {
       }
   })
 });
-
 
 client.on('message', async msg => {
   const { author, guild, channel, } = msg
@@ -47,6 +45,15 @@ const args = msg.content
 
 const cmd = args.shift().toLowerCase()
 
+if (cmd === "pozdrawiam") {
+  channel.send(`Również pozdrawiam ${msg.author.username}`)
+}
+
+if (cmd === "herbata") {
+  const attachment = new MessageAttachment('tea.gif');
+  channel.send(attachment)
+}
+
 if (cmd === 'fakty') {
   const fakty = [
     "Podejrzewam, że w dziełach Lenina jest wszystko, jak dobrze poszukać.",
@@ -54,20 +61,16 @@ if (cmd === 'fakty') {
     "Różnica między Polską a Stanami polega jednak na tym, że oni swoich Czerwonych przechowują w rezerwatach – a my w parlamentach.",
     "Różnica między PiS a PO jest taka, że PiS nie zrobił lustracji, a PO nie robi liberalizacji.",
     "W Rosji w porównaniu z Polską może Pan mieć przy sobie dowolny narkotyk przy sobie na ulicy i nic nie mogą Panu zrobić. Podatki są prawie dwa razy niższe niż u nas.",
-  "To byli wyszkoleni Ukrainscy terroryści, nawet wiem dokładnie, kto z Polski ich szkolił",
     "Chciałbym odebrać prawo wyborcze wielu osobom, nie tylko kobietom",
-    "Oczywiście, że lałem dzieci. Dzieci czasami trzeba karać. To jest normalne i wszyscy to robią.",
     "Do 9 roku życia byłem socjalistą. Podobno każdy za młodu powinien nim być, potem mądrzeje.",
     "Celem ruchu drogowego nie jest bezpieczeństwo, tylko szybkość.",
     "Gdyby w '39 co drugi Żyd miał broń, nie byłoby Holokaustu.",
     "Ilość homosiów w każdym kraju jest od pół do jednego, czasami w niektórych krajach, do półtora procenta.",
-   "Kiedy kobieta ma pryszcz na twarzy – stara się nie wychodzić z mieszkania. Podobnie z inwalidami.",
    "Kiedyś karty były dla mnie głównym sposobem utrzymywania rodziny.",
    "Likwidacja Senatu oznacza oddanie władzy tym głupkom w Sejmie!",
    "Skok z szóstego piętra jest z całą pewnością bardziej szkodliwy niż zażywanie heroiny, aczkolwiek nie zakazujemy budowy szóstych pięter.",
    "Socjalizm to potwór, który padnie.",
    "Więzienia – to uniwersytety opozycji.",
-   "Budynek Komisji Europejskiej byłby idealny na burdel.",
    "Czy ktoś widział kiedyś, żeby koń wręczył kopertę weterynarzowi?",
    "Lekka pedofilia nie jest szkodliwa społecznie.",
    "Macie Państwo rację: jestem za równouprawnieniem płci! Za tym, by czynności kobiece – np. karmienie męża i dzieci – uznać za równocenne z męskimi!",
@@ -115,7 +118,74 @@ if (cmd === 'fakty') {
 channel.send(fakty[randomIndex])
 }
 
+if (cmd === "stats") {
+  if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
+  const m = await msg.channel.send("A no juz prosze"); 
+  const embed = new MessageEmbed()
+  .addField("⌛ Ping", `**${m.createdTimestamp -  msg.createdTimestamp}ms**`)
+  .addField("⏲️ API", `**${Math.floor(client.ws.ping)}ms**`)
+  .addField("Serwery", client.guilds.cache.size.toLocaleString())
+  .addField("Użytkownicy", `${client.users.cache.size.toLocaleString()} userów`)
+  
+channel.send(embed)
+}
 
+if (cmd === "serverinfo" || cmd === "server" || cmd === "serwer" || cmd === "serwerinfo") {
+  
+  var dzisiaj = guild.createdAt;
+
+  var dzien = dzisiaj.getDate(); 
+  if (dzien<10) dzien = "0"+dzien
+  var miesiac = dzisiaj.getMonth()+1;
+  if (miesiac<10) miesiac = "0"+miesiac
+  var rok = dzisiaj.getFullYear();
+  
+  var godzina = dzisiaj.getHours();
+  if (godzina<10) godzina = "0"+godzina;
+  var minuta = dzisiaj.getMinutes();
+  if (minuta<10) minuta = "0"+minuta;
+  var sekunda = dzisiaj.getSeconds();
+  if (sekunda<10) sekunda = "0"+sekunda;
+
+  let region = {
+    "brazil": "🇧🇷 Brazylia",
+    "eu-central": "🇪🇺 Europa centralna",
+    "singapore": "🇸🇬 Singapur",
+    "london": "🇬🇧 Londyn",
+    "russia": "🇷🇺 Rosja",
+    "japan": "🇯🇵 Japonia",
+    "hongkong": "🇨🇳 Hongkong",
+    "sydney": "🇦🇺 Sydney",
+    "us-central": "🇺🇸 USA Centralna",
+    "us-east": "🇺🇸 USA Wschód",
+    "us-south": "🇺🇸 USA Północ",
+    "us-west": "🇺🇸 USA Zachód",
+    "eu-west": "🇪🇺 Zachodnia Europa",
+    "europe": "🇪🇺 Europa"
+  }
+  let member = msg.guild.members;
+  let total = msg.guild.memberCount;
+  let online = member.cache.filter(m => m.user.presence.status === "online").size
+  let location = region[msg.guild.region];
+  let createdate = dzien+"."+miesiac+"."+rok+" "+godzina+":"+minuta
+    const embed = new MessageEmbed()
+  .setTitle(`${guild.name}`)
+  .setThumbnail(`${guild.iconURL({size: 4096, dynamic: true})}`)
+  // Set the color of the embed
+  .setColor('BLUE')
+  // Set the main content of the embed
+  .addField("ID", guild.id, true)
+  .addField("Region", location, true)
+  .addField("Owner", `<:ServerOwner:710596476052570132> ${guild.owner.toString()}`, true)
+  .addField("Użytkownicy", `<:offline:709181045315993610> ${total}`, true)
+  .addField("Online", `<:Online:710599618949546155> ${online}`, true)
+  .addField("Stworzony w dniu", `${createdate}`)
+  .addField("Ilość boostów", `<:Boost:709373206917546074> ${guild.premiumSubscriptionCount}`, true)
+  .addField(`Poziom boostów` , `<:Level:709373216036225054> ${guild.premiumTier}`, true)
+  .setTimestamp()
+  .setFooter(`Komendy użył ${msg.author.username}#${msg.author.discriminator}`)
+  channel.send(embed) 
+}
 
 if (cmd === "pomoc" ||  cmd === "help" || cmd === "info") {
   let avatar = (client.user.displayAvatarURL({size: 4096}))
@@ -130,15 +200,15 @@ const embed = new MessageEmbed()
 .addField("Tyle osób zna moje poglądy", client.users.cache.size.toLocaleString(), true)
 .addField("Znajduję się na tylu serwerach", client.guilds.cache.size.toLocaleString(), true)
 .addField("Prefix", "`korwinie `", true)
-.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina.")
-.addField("Developer bota", "`Neyvin#0437`", true)
+.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera.")
+.addField("Developer bota", "<@!506486820637376512>", true)
 .addField("Serwer developerski", `[Link do serwera](${link2})`, true)
+.setFooter('Proszę pamiętąć o jednym - ja, nie mam na celu nikogo urazić!')
 channel.send(embed)
 }
 
 if (cmd === "dodaj" || cmd === "add" || cmd === "invite") {
   let link1 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
-  let link1920 = "https://discord.gg/R5PXXM3/"
  let embed = new MessageEmbed()
  .setColor("BLUE")
   .setDescription(`[Dodaj mnie!](${link1})`)
@@ -146,7 +216,7 @@ if (cmd === "dodaj" || cmd === "add" || cmd === "invite") {
 }
 
 
-if (cmd === "serwery") {
+if (cmd === "serverlist") {
   if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
   client.guilds.cache.forEach(server => {
     let total = server.memberCount
@@ -158,8 +228,6 @@ if (cmd === "serwery") {
  .setColor("RANDOM")
  .addField("Users", `${total} użytkowników w tym ${bots} botów`)
 channel.send(embed)
-
-
   })
 }
 
@@ -194,12 +262,6 @@ const randomIndex = Math.floor(Math.random() * ball.length);
   channel.send(`Moim zdaniem ${user.username} jest ${(ball[randomIndex])}`)
 }
 
-if (cmd === "dm") {
-  if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
-  let user = msg.mentions.users.first() || args[0] && await client.users.fetch(args[0]).catch(() => false) || (msg.author) || (user.id)
-user.send(args.join(" "))
-}
- 
 if (cmd === "napisz") {
   let channel = msg.mentions.channels.first() || args[0] && await msg.guild.channels.resolve(args[0]);
   if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
@@ -229,7 +291,7 @@ if (!channel) msg.channel.send(args.join(" "))
     .addField("YouTube", `<:Youtube:756225081474154507> [Link do YouTube'a](${link4})`)
     .addField("Instagram", `<:Instagram:756225096150155356> [Link do Instagrama](${link3})`)
     .addField("Facebook", `<:Facebook:756225194074571258> [Link do Facebook'a](${link5})`)
-    .addField("Discord", `<:Discord:756878942178246716> [Link do dodania bota](${link6})`)
+    .addField("Discord", `<:Discord:756878942178246716> [Link do dodania bota](${link7})`)
     channel.send(embed)
     }
   
@@ -239,7 +301,6 @@ if (!channel) msg.channel.send(args.join(" "))
      channel.send ( {files: ["./zdjecia korwina/" + imageNumber + ".png"]} )
     }
 
-    
 })
 
 client.login(token); 
