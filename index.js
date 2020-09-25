@@ -200,7 +200,7 @@ const embed = new MessageEmbed()
 .addField("Tyle osób zna moje poglądy", client.users.cache.size.toLocaleString(), true)
 .addField("Znajduję się na tylu serwerach", client.guilds.cache.size.toLocaleString(), true)
 .addField("Prefix", "`korwinie `", true)
-.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera.")
+.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie.")
 .addField("Developer bota", "<@!506486820637376512> \n <@545711974076383242>", true)
 .addField("Serwer developerski", `[Link do serwera](${link2})`, true)
 .setFooter('Proszę pamiętąć o jednym - ja, nie mam na celu nikogo urazić!')
@@ -301,6 +301,171 @@ if (!channel) msg.channel.send(args.join(" "))
      channel.send ( {files: ["./zdjecia korwina/" + imageNumber + ".png"]} )
     }
 
+
+    if (cmd === "trivia") {   
+    
+      let questions = [
+        {
+          title: "Jak się nazywa moja aktualna partia polityczna?",
+          options: ["KORWiN", "Kongres Nowej Prawicy", "Unia Polityki Realnej", "Wolność i Praworządność"],
+          correct: 1,
+        },
+        {
+          title: "Gdzie się urodziłem?",
+          options: ["Wrocław", "Białystok", "Warszawa", "Gdańsk"],
+          correct: 3,
+        },
+  
+      {
+        title: "W którym roku się urodziłem?",
+          options: ["1942", "1944", "1939", "1941"],
+          correct: 1,
+      },
+      {
+        title: "Jak mam na drugie imię?",
+          options: ["Andrzej", "Krzysztof", "Ryszard", "Nie mam drugiego imienia"],
+          correct: 3,
+      },
+      {
+        title: "W jaką grę jestem ekspertem?",
+          options: ["Poker", "Brydż", "Remik", "Tysiąc"],
+          correct: 2,
+      },
+      {
+        title: "Skąd jest moja rodzina?",
+          options: ["Polska", "Belgia", "Niemcy", "Szwecja"],
+          correct: 4,
+      },
+      {
+        title: "Kto się mną zajmował jak byłem mały po śmierci mojego ojca?",
+          options: ["Babka", "Matka", "Dziadek", "Wujek"],
+          correct: 1,
+      },
+      {
+        title: "Ile mam dzieci?",
+          options: ["3", "5", "2", "7"],
+          correct: 4,
+      },
+      {
+        title: "Ile w życiu wydałem książek?",
+          options: ["23", "20", "19", "24"],
+          correct: 1,
+      },
+      {
+        title: "Kto się mną zajmował jak byłem mały po śmierci mojego ojca?",
+          options: ["Babka", "Matka", "Dziadek", "Wujek"],
+          correct: 1,
+      },
+      {
+        title: "Ile mam wzrostu?",
+          options: ["1,90m", "1,89m", "1,79m", "1,83m"],
+          correct: 2,
+      },
+      {
+        title: "Jak się nazywa moja aktualna żona?",
+          options: ["Ewa Mieczkowska", "Zuzanna Korwin-Mikke", "Dominika Korwin-Mikke", "Nadzieja Korwin-Mikke"],
+          correct: 3,
+      },
+      {
+        title: "Kogo wspierałem podczas wyborów 2020?",
+          options: ["Robert Biedroń", "Andrzej Duda", "Rafała Traskowskiego", "Krzysztof Bosak"],
+          correct: 4,
+      },
+      {
+        title: "Jakie mam wykształcenie?",
+          options: ["Uniwersytet Warszawski", "Wydział Filozofii i Socjologii Uniwersytetu Gdańskiego", "Uniwersyter Wrocławski", "Brak wykształcenia"],
+          correct: 1,
+      },
+      {
+        title: "Ile mam zdjęć w komendzie `korwinie losowe`",
+          options: ["40", "42", "37", "34"],
+          correct: 3,
+      },
+      {
+        title: "Ile łącznie mam komend (licząc easter eggi i komendy developerskie)",
+          options: ["21", "10", "8", "13"],
+          correct: 4,
+      },
+      {
+        title: "Kogo wspierałem podczas wyborów 2010?",
+          options: ["Jarosław Kaczyński", "Sam startowałem na prezydenta", "Bronisław Komorowski", "Grzegorz Napieralski"],
+          correct: 2,
+      },
+      {
+        title: "Z jaka partią zdobyłem poparcie po raz drugi?",
+          options: ["Unia Polityki Realnej", "KWW Ruch Wyborców Janusza Korwin-Mikke", "KORWiN", "Liga Polskich Rodzin", "KWW Blok Senat 2001", "Nowa Prawica – Janusza Korwin-Mikke", "Platforma Janusza Korwin-Mikkego", "Unia Prawicy Rzeczypospolitej"],
+          correct: 6,
+      },
+      {
+        title: "Z jaka partią zdobyłem poparcie po raz drugi?",
+          options: ["Unia Polityki Realnej", "KWW Ruch Wyborców Janusza Korwin-Mikke", "KORWiN", "Liga Polskich Rodzin", "KWW Blok Senat 2001", "Nowa Prawica – Janusza Korwin-Mikke", "Platforma Janusza Korwin-Mikkego", "Unia Prawicy Rzeczypospolitej"],
+          correct: 6,
+      },
+      {
+        title: "Na które z poniżych pluję ją w komendzie `korwinie poglady`?",
+          options: ["Islamista", "Feminista", "Narodowiec", "Faszystowca"],
+          correct: 4,
+      },
+      ];
+          let q = questions[Math.floor(Math.random() * questions.length)];
+          let i = 0;
+          let avatar = msg.author.displayAvatarURL({size: 4096, dynamic: true});
+  
+          var LowerEmbed = new MessageEmbed()
+          .setAuthor(msg.author.username, avatar)
+          .setThumbnail(avatar)
+          .setTitle("Odpowiedź")
+          .setColor("YELLOW")
+          .setDescription(`Nie otrzymałem odpowiedzi w przeciągu 15 sekund.`)
+          .setTimestamp()
+  
+          const Embed = new MessageEmbed()
+          .setAuthor(msg.author.username, avatar)
+          .setThumbnail(avatar)
+            .setTitle(q.title)
+            .setDescription(
+              q.options.map((opt) => {
+                i++;
+                return `${i} - ${opt}\n`;
+              })
+            )
+            .setColor(`BLUE`)
+            .setFooter(
+              "Odpowiedz poprawnie na pytanie w mniej niż 15 sekund! \nOdpowiedz tylko i wyłacznie cyfrą jaka jest przy odpowiedzi."
+            )
+            .setTimestamp();
+   msg.channel.send(Embed);
+     
+          try {
+            let msgs = await msg.channel.awaitMessages(
+              (u2) => u2.author.id === msg.author.id,
+              { time: 15000, max: 1, errors: ["time"] }
+            );
+            var LowestEmbed = new MessageEmbed()
+            .setAuthor(msg.author.username, avatar)
+            .setThumbnail(avatar)
+            .setTitle("Odpowiedź")
+            .setColor("RED")
+            .setDescription(`Twoja odpowiedzią było ${parseInt(msgs.first().content)} i jest ona błędna, zdarza się.`)
+            .setTimestamp()
+        
+            var HighestEmbed = new MessageEmbed()
+            .setAuthor(msg.author.username, avatar)
+            .setThumbnail(avatar)
+            .setTitle("Odpowiedź")
+            .setColor("GREEN")
+            .setDescription(`Twoja odpowiedzią było ${parseInt(msgs.first().content)} i jest ona poprawna, gratulację!`)
+            .setTimestamp()
+        
+            if (parseInt(msgs.first().content) == q.correct) {
+              return msg.channel.send(HighestEmbed);
+            } else {
+              return msg.channel.send(LowestEmbed);
+            }
+          } catch (e) {
+            return msg.channel.send(LowerEmbed);
+          }
+        }
 })
 
 client.login(token); 
