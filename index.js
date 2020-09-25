@@ -297,7 +297,7 @@ if (!channel) msg.channel.send(args.join(" "))
   
     if (cmd === "zdjecia" || cmd === "zdjecie" || cmd === "losowezdjecie" || cmd === "losowe") {
       number = 29;
-      let imageNumber = Math.floor(Math.random()* 29) +1
+      let imageNumber = Math.floor(Math.random()* 37) +1
      channel.send ( {files: ["./zdjecia korwina/" + imageNumber + ".png"]} )
     }
 
