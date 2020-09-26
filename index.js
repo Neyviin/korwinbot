@@ -16,15 +16,25 @@ const cache = require("cache")
 client.on('ready', () => {
   log(chalk.blue(`Zresetowano ${client.user.tag}!`));
 
+function randomStatus() {
+  const statusy = [
+    "korwinie pomoc",
+    "z feministkami",
+    `Obsługuję ${client.guilds.cache.size.toLocaleString()} serwerów i ${client.users.cache.size.toLocaleString()} użytkowników.`,
+  ]
+  let status2 = statusy // You can change it whatever you want.
+  let rstatus = Math.floor(Math.random() * status2.length);
+  
 
     client.user.setPresence({
       status: 'Discord iOS',
       activity: {
-          name: `korwinie pomoc`,
+          name: `${status2[rstatus]}`,
           type: 'PLAYING',
-      }
-  })
-});
+      } 
+    }) 
+} setInterval(randomStatus, 30000)
+}); 
 
 client.on('message', async msg => {
   const { author, guild, channel, } = msg
@@ -297,7 +307,7 @@ if (!channel) msg.channel.send(args.join(" "))
   
     if (cmd === "zdjecia" || cmd === "zdjecie" || cmd === "losowezdjecie" || cmd === "losowe") {
       number = 29;
-      let imageNumber = Math.floor(Math.random()* 37) +1
+      let imageNumber = Math.floor(Math.random()* 39) +1
      channel.send ( {files: ["./zdjecia korwina/" + imageNumber + ".png"]} )
     }
 
@@ -378,7 +388,7 @@ if (!channel) msg.channel.send(args.join(" "))
       },
       {
         title: "Ile mam zdjęć w komendzie `korwinie losowe`",
-          options: ["40", "42", "37", "34"],
+          options: ["40", "42", "37", "39"],
           correct: 3,
       },
       {
@@ -425,7 +435,7 @@ if (!channel) msg.channel.send(args.join(" "))
           .setAuthor(msg.author.username, avatar)
           .setThumbnail(avatar)
           .setTitle("Odpowiedź")
-          .setColor("YELLOW")
+          .setColor("ORANGE")
           .setDescription(`Nie otrzymałem odpowiedzi w przeciągu 15 sekund.`)
           .setTimestamp()
   
