@@ -402,8 +402,18 @@ if (!channel) msg.channel.send(args.join(" "))
           correct: 6,
       },
       {
-        title: "Na które z poniżych pluję ją w komendzie `korwinie poglady`?",
+        title: "Na które z poniżych pluję w komendzie `korwinie poglady`?",
           options: ["Islamista", "Feminista", "Narodowiec", "Faszystowca"],
+          correct: 2,
+      },
+      {
+        title: "Jakiego kierunku nie mogłem kontynuować przez areszt w 1964?",
+          options: ["Filozofia", "Prawo", "Żadne z powyższych", "Fizyka"],
+          correct: 3,
+      },
+      {
+        title: "Do kogo należałem w latach 1957?",
+          options: ["Do nikogo", "Oficyna Liberałów", "Stronnictwo Demokratyczne", "Związek Młodzieży Socjalistycznej"],
           correct: 4,
       },
       ];
