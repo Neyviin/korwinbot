@@ -174,8 +174,13 @@ if (cmd === "serverinfo" || cmd === "server" || cmd === "serwer" || cmd === "ser
     "europe": "🇪🇺 Europa"
   }
   let member = msg.guild.members;
-  let total = msg.guild.memberCount;
+  let total = msg.guild.members.cache.filter(member => !member.user.bot).size;
   let online = member.cache.filter(m => m.user.presence.status === "online").size
+let dnd = member.cache.filter(m => m.user.presence.status === "dnd").size
+let idle = member.cache.filter(m => m.user.presence.status === "idle").size
+let t0tal = online+dnd+idle
+  let text = msg.guild.channels.cache.filter(channel => channel.type === 'text').size
+  let voice = msg.guild.channels.cache.filter(channel => channel.type === 'voice').size
   let location = region[msg.guild.region];
   let createdate = dzien+"."+miesiac+"."+rok+" "+godzina+":"+minuta
     const embed = new MessageEmbed()
@@ -188,10 +193,12 @@ if (cmd === "serverinfo" || cmd === "server" || cmd === "serwer" || cmd === "ser
   .addField("Region", location, true)
   .addField("Owner", `<:ServerOwner:710596476052570132> ${guild.owner.toString()}`, true)
   .addField("Użytkownicy", `<:offline:709181045315993610> ${total}`, true)
-  .addField("Online", `<:Online:710599618949546155> ${online}`, true)
+  .addField("Online", `<:Online:710599618949546155> ${t0tal}`, true)
   .addField("Stworzony w dniu", `${createdate}`)
-  .addField("Ilość boostów", `<:Boost:709373206917546074> ${guild.premiumSubscriptionCount}`, true)
-  .addField(`Poziom boostów` , `<:Level:709373216036225054> ${guild.premiumTier}`, true)
+  .addField("Kanały tekstowe", `<:Channel:759698720135708683> ${text}`, true)
+  .addField("Kanały głosowe", `<:Voice:759699965026631701> ${voice}`, true)
+  .addField("Ilość boostów", `<:Boost:709373206917546074> ${guild.premiumSubscriptionCount}`)
+  .addField(`Poziom boostów` , `<:Level:709373216036225054> ${guild.premiumTier}`)
   .setTimestamp()
   .setFooter(`Komendy użył ${msg.author.username}#${msg.author.discriminator}`)
   channel.send(embed) 
