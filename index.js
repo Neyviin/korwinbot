@@ -20,6 +20,7 @@ function randomStatus() {
   const statusy = [
     "korwinie pomoc",
     "z feministkami",
+    `korwinie dodaj`,
     `Obsługuję ${client.guilds.cache.size.toLocaleString()} serwerów i ${client.users.cache.size.toLocaleString()} użytkowników.`,
   ]
   let status2 = statusy // You can change it whatever you want.
@@ -33,7 +34,7 @@ function randomStatus() {
           type: 'PLAYING',
       } 
     }) 
-} setInterval(randomStatus, 30000)
+} setInterval(randomStatus, 40000)
 }); 
 
 client.on('message', async msg => {
@@ -174,11 +175,12 @@ if (cmd === "serverinfo" || cmd === "server" || cmd === "serwer" || cmd === "ser
     "europe": "🇪🇺 Europa"
   }
   let member = msg.guild.members;
-  let total = msg.guild.members.cache.filter(member => !member.user.bot).size;
   let online = member.cache.filter(m => m.user.presence.status === "online").size
 let dnd = member.cache.filter(m => m.user.presence.status === "dnd").size
 let idle = member.cache.filter(m => m.user.presence.status === "idle").size
+let offline = member.cache.filter(m => m.user.presence.status === "offline").size
 let t0tal = online+dnd+idle
+let t0t4l = online+dnd+idle+offline
   let text = msg.guild.channels.cache.filter(channel => channel.type === 'text').size
   let voice = msg.guild.channels.cache.filter(channel => channel.type === 'voice').size
   let location = region[msg.guild.region];
@@ -192,7 +194,7 @@ let t0tal = online+dnd+idle
   .addField("ID", guild.id, true)
   .addField("Region", location, true)
   .addField("Owner", `<:ServerOwner:710596476052570132> ${guild.owner.toString()}`, true)
-  .addField("Użytkownicy", `<:offline:709181045315993610> ${total}`, true)
+  .addField("Użytkownicy", `<:offline:709181045315993610> ${t0t4l}`, true)
   .addField("Online", `<:Online:710599618949546155> ${t0tal}`, true)
   .addField("Stworzony w dniu", `${createdate}`)
   .addField("Kanały tekstowe", `<:Channel:759698720135708683> ${text}`, true)
@@ -206,7 +208,7 @@ let t0tal = online+dnd+idle
 
 if (cmd === "pomoc" ||  cmd === "help" || cmd === "info") {
   let avatar = (client.user.displayAvatarURL({size: 4096}))
-  let link1 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
+  let link1 = "https://discord.com/api/oauth2/authorize?client_id=750329969477025792&permissions=388176&scope=bot"
   let link2 = "https://discord.gg/R5PXXm3/"
 const embed = new MessageEmbed()
 .setTitle("Moje komendy")
@@ -224,8 +226,8 @@ const embed = new MessageEmbed()
 channel.send(embed)
 }
 
-if (cmd === "dodaj" || cmd === "add" || cmd === "invite") {
-  let link1 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
+if (cmd === "dodaj" || cmd === "add" || cmd === "invite" || cmd === "inv") {
+  let link1 = "https://discord.com/api/oauth2/authorize?client_id=750329969477025792&permissions=388176&scope=bot"
  let embed = new MessageEmbed()
  .setColor("BLUE")
   .setDescription(`[Dodaj mnie!](${link1})`)
@@ -300,7 +302,7 @@ if (!channel) msg.channel.send(args.join(" "))
     let link4 = "https://www.youtube.com/channel/UCEzucgSFyL5Sh9rF26geBZQ"
     let link5 = "https://www.facebook.com/janusz.korwin.mikke/"
     let link6 = "https://twitter.com/JkmMikke?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
-    let link7 = "https://discord.com/oauth2/authorize?client_id=750329969477025792&permissions=387136&scope=bot"
+    let link7 = "https://discord.com/api/oauth2/authorize?client_id=750329969477025792&permissions=388176&scope=bot"
     let embed = new MessageEmbed()
     .setTitle("Moje socialmedia")
     .setColor("BLUE")
@@ -340,52 +342,47 @@ if (!channel) msg.channel.send(args.join(" "))
       },
       {
         title: "Jak mam na drugie imię?",
-          options: ["Andrzej", "Krzysztof", "Ryszard", "Nie mam drugiego imienia"],
+          options: ["Andrzej", "Krzysztof", "Ryszard", "Paweł", "Nie mam drugiego imienia"],
           correct: 3,
       },
       {
         title: "W jaką grę jestem ekspertem?",
-          options: ["Poker", "Brydż", "Remik", "Tysiąc"],
+          options: ["Poker", "Brydż", "Remik", "Tysiąc", "Makao"],
           correct: 2,
       },
       {
         title: "Skąd jest moja rodzina?",
-          options: ["Polska", "Belgia", "Niemcy", "Szwecja"],
+          options: ["Polska", "Belgia", "Niemcy", "Szwecja", "Francja", "Szwajcaria"],
           correct: 4,
       },
       {
-        title: "Kto się mną zajmował jak byłem mały po śmierci mojego ojca?",
-          options: ["Babka", "Matka", "Dziadek", "Wujek"],
-          correct: 1,
-      },
-      {
         title: "Ile mam dzieci?",
-          options: ["3", "5", "2", "7"],
+          options: ["3", "5", "2", "7", "6", "4"],
           correct: 4,
       },
       {
         title: "Ile w życiu wydałem książek?",
-          options: ["23", "20", "19", "24"],
+          options: ["23", "20", "19", "24", "29"],
           correct: 1,
       },
       {
         title: "Kto się mną zajmował jak byłem mały po śmierci mojego ojca?",
-          options: ["Babka", "Matka", "Dziadek", "Wujek"],
+          options: ["Babka", "Matka", "Dziadek", "Wujek", "Nikt"],
           correct: 1,
       },
       {
         title: "Ile mam wzrostu?",
-          options: ["1,90m", "1,89m", "1,79m", "1,83m"],
+          options: ["1,90m", "1,89m", "1,79m", "1,83m", "1,92m"],
           correct: 2,
       },
       {
         title: "Jak się nazywa moja aktualna żona?",
-          options: ["Ewa Mieczkowska", "Zuzanna Korwin-Mikke", "Dominika Korwin-Mikke", "Nadzieja Korwin-Mikke"],
+          options: ["Ewa Mieczkowska", "Zuzanna Korwin-Mikke", "Dominika Korwin-Mikke", "Nadzieja Korwin-Mikke", "Karolina Kosikowska"],
           correct: 3,
       },
       {
         title: "Kogo wspierałem podczas wyborów 2020?",
-          options: ["Robert Biedroń", "Andrzej Duda", "Rafała Traskowskiego", "Krzysztof Bosak"],
+          options: ["Robert Biedroń", "Andrzej Duda", "Rafała Traskowskiego", "Krzysztof Bosak", "Stanisław Żółtek"],
           correct: 4,
       },
       {
@@ -395,12 +392,12 @@ if (!channel) msg.channel.send(args.join(" "))
       },
       {
         title: "Ile mam zdjęć w komendzie `korwinie losowe`",
-          options: ["40", "42", "37", "39"],
+          options: ["40", "42", "37", "39", "46", "38", "43"],
           correct: 3,
       },
       {
         title: "Ile łącznie mam komend (licząc easter eggi i komendy developerskie)",
-          options: ["21", "10", "8", "13"],
+          options: ["21", "10", "8", "15", "29", "12"],
           correct: 4,
       },
       {
