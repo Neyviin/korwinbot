@@ -34,7 +34,7 @@ function randomStatus() {
           type: 'PLAYING',
       } 
     }) 
-} setInterval(randomStatus, 40000)
+} setInterval(randomStatus, 60000)
 }); 
 
 client.on('message', async msg => {
