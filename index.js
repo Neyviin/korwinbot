@@ -61,7 +61,7 @@ if (cmd === "pozdrawiam") {
 }
 
 if (cmd === "herbata") {
-  const attachment = new MessageAttachment('tea.gif');
+  let attachment = new MessageAttachment('tea.gif');
   channel.send(attachment)
 }
 
@@ -219,7 +219,7 @@ const embed = new MessageEmbed()
 .addField("Tyle osób zna moje poglądy", client.users.cache.size.toLocaleString(), true)
 .addField("Znajduję się na tylu serwerach", client.guilds.cache.size.toLocaleString(), true)
 .addField("Prefix", "`korwinie `", true)
-.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie.")
+.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie. \n `korwinie dodaj` - Dodaj Korwinbota do siebie na serwer.")
 .addField("Developerzy bota", "Neyvin#0437 \n igreky#4820", true)
 .addField("Serwer developerski", `[Link do serwera](${link2})`, true)
 .setFooter('Proszę pamiętąć o jednym - ja, nie mam na celu nikogo urazić!')
