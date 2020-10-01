@@ -23,7 +23,7 @@ function randomStatus() {
     `korwinie dodaj`,
     `Obsługuję ${client.guilds.cache.size.toLocaleString()} serwerów i ${client.users.cache.size.toLocaleString()} użytkowników.`,
   ]
-  let status2 = statusy // You can change it whatever you want.
+  let status2 = statusy 
   let rstatus = Math.floor(Math.random() * status2.length);
   
 
@@ -188,9 +188,7 @@ let t0t4l = online+dnd+idle+offline
     const embed = new MessageEmbed()
   .setTitle(`${guild.name}`)
   .setThumbnail(`${guild.iconURL({size: 4096, dynamic: true})}`)
-  // Set the color of the embed
   .setColor('BLUE')
-  // Set the main content of the embed
   .addField("ID", guild.id, true)
   .addField("Region", location, true)
   .addField("Owner", `<:ServerOwner:710596476052570132> ${guild.owner.toString()}`, true)
