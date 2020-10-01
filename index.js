@@ -60,11 +60,6 @@ if (cmd === "pozdrawiam") {
   channel.send(`Również pozdrawiam ${msg.author.username}`)
 }
 
-if (cmd === "herbata") {
-  let attachment = new MessageAttachment('tea.gif');
-  channel.send(attachment)
-}
-
 if (cmd === 'fakty') {
   const fakty = [
     "Podejrzewam, że w dziełach Lenina jest wszystko, jak dobrze poszukać.",
@@ -294,23 +289,6 @@ if (!channel) msg.channel.send(args.join(" "))
     const attachment = new MessageAttachment('autograf.png');
     msg.author.send(`O to i twój autograf ${msg.author.username}`, attachment)
   }
-
-  if (cmd === "media" || cmd === "link" || cmd === "strony" || cmd === "links" || cmd === "linki" || cmd === "linki") {
-    let link3 = "https://www.instagram.com/januszkorwinmikke/?hl=pl"
-    let link4 = "https://www.youtube.com/channel/UCEzucgSFyL5Sh9rF26geBZQ"
-    let link5 = "https://www.facebook.com/janusz.korwin.mikke/"
-    let link6 = "https://twitter.com/JkmMikke?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
-    let link7 = "https://discord.com/api/oauth2/authorize?client_id=750329969477025792&permissions=388176&scope=bot"
-    let embed = new MessageEmbed()
-    .setTitle("Moje socialmedia")
-    .setColor("BLUE")
-    .addField("Twitter", `<:Twitter:756225183949390064> [Link do Twittera](${link6})`)
-    .addField("YouTube", `<:Youtube:756225081474154507> [Link do YouTube'a](${link4})`)
-    .addField("Instagram", `<:Instagram:756225096150155356> [Link do Instagrama](${link3})`)
-    .addField("Facebook", `<:Facebook:756225194074571258> [Link do Facebook'a](${link5})`)
-    .addField("Discord", `<:Discord:756878942178246716> [Link do dodania bota](${link7})`)
-    channel.send(embed)
-    }
   
     if (cmd === "zdjecia" || cmd === "zdjecie" || cmd === "losowezdjecie" || cmd === "losowe") {
       number = 29;
