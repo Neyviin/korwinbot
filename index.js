@@ -60,6 +60,34 @@ if (cmd === "pozdrawiam") {
   channel.send(`Również pozdrawiam ${msg.author.username}`)
 }
 
+if (cmd === "covid") {
+  if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
+  let user = msg.mentions.users.first() || args[0] && await client.users.fetch(args[0]).catch(() => false) || (msg.author) || (user.id)
+  let covid = [ 
+  `negatywny.`,
+`pozytywny.`
+  ];
+  const randomcovid = Math.floor(Math.random() * covid.length);
+    channel.send(`Test na COVID-19 u ${user.username} wyszedł ${(covid[randomcovid])}`)
+  }
+
+if (cmd === "ascii") {
+const figlet = require('figlet');
+if(!args[0]) return msg.channel.send('Dobrze by było gdybyś podał co mam napisać.');
+
+msg1 = args.join(" ");
+
+figlet.text(msg1, function (err, data){
+    if(err){
+        console.log('Coś się zepsuło, wysyłam wiadomość do developerów.');
+        console.dir(err);
+    }
+    if(data.length > 1000) return msg.channel.send('Na tę chwilę limit znaków to 100 znaków, napisz coś krótszego.')
+
+    msg.channel.send('```' + data + '```')
+  })
+}
+
 if (cmd === 'fakty') {
   const fakty = [
     "Podejrzewam, że w dziełach Lenina jest wszystko, jak dobrze poszukać.",
