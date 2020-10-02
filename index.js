@@ -60,16 +60,58 @@ if (cmd === "pozdrawiam") {
   channel.send(`Również pozdrawiam ${msg.author.username}`)
 }
 
-if (cmd === "covid") {
-  if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
-  let user = msg.mentions.users.first() || args[0] && await client.users.fetch(args[0]).catch(() => false) || (msg.author) || (user.id)
-  let covid = [ 
-  `negatywny.`,
-`pozytywny.`
-  ];
-  const randomcovid = Math.floor(Math.random() * covid.length);
-    channel.send(`Test na COVID-19 u ${user.username} wyszedł ${(covid[randomcovid])}`)
-  }
+if (cmd === "covid" || cmd === "covid-19" || cmd === "koronawirus" || cmd === "Covid" || cmd === "Koronawirus") {
+  let fetch = require('node-fetch')
+   let user = msg.mentions.users.first() || args[0] && await client.users.fetch(args[0]).catch(() => false) || (msg.author) || (user.id)
+   fetch(`https://corona.lmao.ninja/v2/countries/Poland`)
+   .then(res => res.json())
+   .then(data => {
+    let zarazeni = data.cases.toLocaleString();
+   
+ 
+   let covid = [
+ `Mówiłem, że covid nie stanowi zagrożenia to mi nie wierzyli.`,
+ `Teraz Ci się udało, na następny raz bądź bardziej ostrożny.`,
+ `Jednak socjaliscie też się czasami szczęście napatoczy.`,
+ `I dobrze.`,
+ `Jednak feminiście też się czasami szczęście napatoczy.`,
+ `Trudne było, że nie zdałeś/aś?`
+   ]
+ 
+   let covid2 = [
+     `Było nosić maseczkę...`,
+     `I po co ci to było?`,
+     `Zgoliłem brodę i znowu będę ją musiał zapuścić.`,
+     `Też się zdziwiłem.`,
+     `Lepiej teraz siedź w domu.`,
+     `Niedobrze...`,
+     `Zdrowia to jedyne co mogę życzyć.`,
+     `Łatwy był, co nie?`
+   ]
+   const randomcovid = Math.floor(Math.random() * covid.length);
+   const randomcovid2 = Math.floor(Math.random() * covid2.length);
+ 
+   const weirdembed = new MessageEmbed()
+   .setTitle("Wynik COVID-19")
+   .setDescription(`<:Tak:741725693557342259> Test na COVID-19 u ${user.username} wyszedł pozytywnie. ${covid2[randomcovid2]}`)
+   .setColor("GREEN")
+   .setFooter(`Aktualnie mamy ${zarazeni} potwierdzonych zakażeń COVID-19 w Polsce.`)
+ 
+   const weirdestembed = new MessageEmbed()
+   .setTitle("Wynik COVID-19")
+   .setDescription(`<:Nie:741725685055356960> Test na COVID-19 u ${user.username} wyszedł negatywnie. ${covid[randomcovid]}`)
+   .setColor("RED")
+ .setFooter(`Aktualnie mamy ${zarazeni} potwierdzonych zakażeń COVID-19 w Polsce.`)
+   let wynik = [
+     weirdembed,
+     weirdestembed,
+   ]
+   
+   const randomWynik = Math.floor(Math.random() * wynik.length);
+  channel.send(wynik[randomWynik]) 
+ 
+   })
+ }
 
 if (cmd === "ascii") {
 const figlet = require('figlet');
@@ -240,7 +282,7 @@ const embed = new MessageEmbed()
 .addField("Tyle osób zna moje poglądy", client.users.cache.size.toLocaleString(), true)
 .addField("Znajduję się na tylu serwerach", client.guilds.cache.size.toLocaleString(), true)
 .addField("Prefix", "`korwinie `", true)
-.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie. \n `korwinie dodaj` - Dodaj Korwinbota do siebie na serwer.")
+.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie. \n `korwinie dodaj` - Dodaj Korwinbota do siebie na serwer. \n `korwinie ascii` - Graficzny tekst \n `korwinie covid` - Test na Covid u mnie już dzisiaj!")
 .addField("Developerzy bota", "Neyvin#0437 \n igreky#4820", true)
 .addField("Serwer developerski", `[Link do serwera](${link2})`, true)
 .setFooter('Proszę pamiętąć o jednym - ja, nie mam na celu nikogo urazić!')
@@ -254,7 +296,6 @@ if (cmd === "dodaj" || cmd === "add" || cmd === "invite" || cmd === "inv") {
   .setDescription(`[Dodaj mnie!](${link1})`)
   channel.send(embed)
 }
-
 
 if (cmd === "serverlist") {
   if (msg.author.id !== '506486820637376512') return channel.send("To jest tylko i wyłącznie komenda developerska.")
@@ -497,7 +538,3 @@ if (!channel) msg.channel.send(args.join(" "))
 })
 
 client.login(token); 
-
-
-
-
