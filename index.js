@@ -1,5 +1,5 @@
 const chalk = require("chalk")
-const { Client, MessageEmbed, MessageAttachment, Message  } = require('discord.js');
+const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
 
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
@@ -56,8 +56,93 @@ const args = msg.content
 
 const cmd = args.shift().toLowerCase()
 
-if (cmd === "pozdrawiam") {
-  channel.send(`Również pozdrawiam ${msg.author.username}`)
+if (cmd === "user" || cmd === "userinfo") {
+  let statusy = {
+    "idle": `<:Idle:741700584398258206> Zaraz wracam`,
+    "offline": "<:Offline:709181045315993610> Offline",
+    "dnd": "<:DoNotDisturb:741700499002097804> Nie przeszkadzać",
+    "online": "<:Online:710599618949546155> Online",
+    "Discord iOS": "Telefon"
+  }
+const flags = {
+    DISCORD_EMPLOYEE: '<:Staff:710596882027511849>',
+    DISCORD_PARTNER: '<:Partner:710596891368226968>',
+    BUGHUNTER_LEVEL_1: '<:BugHunter:710596544130318446>',
+    BUGHUNTER_LEVEL_2: 'Bug Hunter (Level 2)',
+    HYPESQUAD_EVENTS: '<:HypeSquad:710596916471398440> ',
+    HOUSE_BRAVERY: '<:Bravery:710596527323611270>',
+    HOUSE_BRILLIANCE: '<:Brilliance:710596536052219974>',
+    HOUSE_BALANCE: '<:Balance:710596551336132628> ',
+    EARLY_SUPPORTER: '<:EarlySupporter:710826205972004904>',
+    TEAM_USER: 'Team User',
+    SYSTEM: 'System',
+    VERIFIED_BOT: 'Zweryfikowany Bot',
+    VERIFIED_DEVELOPER: '<:VerifiedDeveloper:710596864931659806>'
+};
+const typGry = {
+    CUSTOM_STATUS: " ",
+    PLAYING: "**Gra w:**",
+    LISTENING: "**Słucha:**",
+    WATCHING: "**Ogląda:**",
+}
+let user = msg.mentions.users.first() || args[0] && await client.users.fetch(args[0]).catch(() => false) || (msg.author) || msg.member || msg.guild.members.cache.get(target)
+const member = msg.guild.member(user) || msg.member || user.id || msg.mentions.users.first() || args[0] && await client.users.fetch(args[0]).catch(() => false)
+
+var dzisiaj = user.createdAt;
+var dzien = dzisiaj.getDate(); 
+if (dzien<10) dzien = "0"+dzien
+var miesiac = dzisiaj.getMonth()+1;
+if (miesiac<10) miesiac = "0"+miesiac
+var rok = dzisiaj.getFullYear();
+var godzina = dzisiaj.getHours();
+if (godzina<10) godzina = "0"+godzina;
+var minuta = dzisiaj.getMinutes();
+if (minuta<10) minuta = "0"+minuta;
+
+
+let createdate = dzien+"."+miesiac+"."+rok+" "+godzina+":"+minuta
+
+
+var dzisiaj2 = member.joinedAt;
+var dzien2 = dzisiaj2.getDate(); 
+if (dzien2<10) dzien2 = "0"+dzien2
+var miesiac2 = dzisiaj2.getMonth()+1;
+if (miesiac2<10) miesiac2 = "0"+miesiac2
+var rok2 = dzisiaj2.getFullYear();
+var godzina2 = dzisiaj2.getHours();
+if (godzina2<10) godzina2 = "0"+godzina2;
+var minuta2 = dzisiaj2.getMinutes();
+if (minuta2<10) minuta2 = "0"+minuta2;
+
+let joinedat = dzien2+"."+miesiac2+"."+rok2+" "+godzina2+":"+minuta2
+
+function game() {
+    let game;
+    if (user.presence.activities.length >= 1) game = `${typGry[user.presence.activities[0].type]} ${user.presence.activities[0].name}`;
+    else if (user.presence.activities.length < 1) game = "Nie gra w nic, trudno."; // This will check if the user doesn't playing anything.
+    return game; // Return the result.
+  }
+
+  let guild = client.guilds.cache.get(msg.guild.id)
+USER_ID = `${user.id}`;
+
+        const userFlags = user.flags.toArray();
+        let avatar = user.displayAvatarURL({size: 4096})
+        const embed = new MessageEmbed()
+            .setThumbnail(avatar)
+            .setAuthor(user.tag, avatar)
+            .setDescription(user.toString())
+            .setColor(member.displayHexColor || "BLUE")
+            .addField("ID", member.id)
+            .addField("Odznaki", userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'Brak')
+            .addField("Status", statusy[user.presence.status])
+            .addField("Aktywność", game())
+            .addField("Stworzone w dniu", createdate)
+            if (guild.member(USER_ID))
+            embed.addField("Dołaczył/a w dniu", joinedat)
+            if (guild.member(USER_ID))
+            embed.addField("Najwyższa ranga", member.roles.highest.id === msg.guild.id ? '@everyone' : member.roles.highest.toString())
+            msg.channel.send(embed)
 }
 
 if (cmd === "covid" || cmd === "covid-19" || cmd === "koronawirus" || cmd === "Covid" || cmd === "Koronawirus") {
@@ -273,6 +358,7 @@ if (cmd === "pomoc" ||  cmd === "help" || cmd === "info") {
   let avatar = (client.user.displayAvatarURL({size: 4096}))
   let link1 = "https://discord.com/api/oauth2/authorize?client_id=750329969477025792&permissions=388176&scope=bot"
   let link2 = "https://discord.gg/R5PXXm3/"
+  let link3 = "https://dblista.pl/bots/korwin"
 const embed = new MessageEmbed()
 .setTitle("Moje komendy")
 .setAuthor(client.user.tag, avatar)
@@ -282,18 +368,21 @@ const embed = new MessageEmbed()
 .addField("Tyle osób zna moje poglądy", client.users.cache.size.toLocaleString(), true)
 .addField("Znajduję się na tylu serwerach", client.guilds.cache.size.toLocaleString(), true)
 .addField("Prefix", "`korwinie `", true)
-.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie. \n `korwinie dodaj` - Dodaj Korwinbota do siebie na serwer. \n `korwinie ascii` - Graficzny tekst \n `korwinie covid` - Test na Covid u mnie już dzisiaj!")
+.addField("Lista komend", "`korwinie fakty` - Podam Ci kilka faktów na temat wszystkiego. \n `korwinie poglady` - Powiem, jaka osoba ma poglądy polityczne. \n `korwinie autograf` - Wyślę Ci mój autograf w DM. \n `korwinie losowe` - Losowy obrazek mnie, czyli Korwina. \n `korwinie serwer` - Wyświetlę informację na temat tego serwera. \n `korwinie trivia` - Quiz o mnie. \n `korwinie dodaj` - Dodaj Korwinbota do siebie na serwer. \n `korwinie ascii` - Graficzny tekst \n `korwinie covid` - Test na Covid u mnie już dzisiaj! \n `korwinie user` - Informację na temat danego użytkownika (lub Ciebie)")
 .addField("Developerzy bota", "Neyvin#0437 \n igreky#4820", true)
 .addField("Serwer developerski", `[Link do serwera](${link2})`, true)
+.addField("Zagłosuj na mnie na DBLiście!", `[Możesz to zrobić tu](${link3})`)
 .setFooter('Proszę pamiętąć o jednym - ja, nie mam na celu nikogo urazić!')
 channel.send(embed)
 }
 
 if (cmd === "dodaj" || cmd === "add" || cmd === "invite" || cmd === "inv") {
   let link1 = "https://discord.com/api/oauth2/authorize?client_id=750329969477025792&permissions=388176&scope=bot"
+  let link3 = "https://dblista.pl/bots/korwin"
  let embed = new MessageEmbed()
  .setColor("BLUE")
   .setDescription(`[Dodaj mnie!](${link1})`)
+  .addField("Zagłosuj na mnie na DBLiście!", `[Możesz to zrobić tu](${link3})`)
   channel.send(embed)
 }
 
@@ -354,9 +443,12 @@ if (!channel) msg.channel.send(args.join(" "))
   }
 
   if (cmd === "autograf") {
-    channel.send("Wysłane, ciesz się swoim autografem! (jeśli wiadomość nie dotarła, włącz możliwość przyjmowania wiadomości prywatnych)")
+    channel.send("Wysłane, ciesz się swoim autografem!")
     const attachment = new MessageAttachment('autograf.png');
     msg.author.send(`O to i twój autograf ${msg.author.username}`, attachment)
+    .catch(err => {
+      if(err) return msg.channel.send('Nie jestem w stanie ci wysłać wiadomości prywatnej.')
+  })
   }
   
     if (cmd === "zdjecia" || cmd === "zdjecie" || cmd === "losowezdjecie" || cmd === "losowe") {
