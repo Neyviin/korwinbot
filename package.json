@@ -20,13 +20,13 @@
     "type": "git"
   },
   "keywords": [
-    "Discord",
+    "korwin",
     "bot"
   ],
-  "author": "Neyvin",
+  "author": "Neyvin#0437",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Neyviin/Plushie/issues"
+    "url": "https://github.com/Neyviin/korwinikbot/issues"
   },
-  "homepage": "https://github.com/Neyviin/Plushie#readme"
+  "homepage": "https://github.com/Neyviin/korwinikbot"
 }
