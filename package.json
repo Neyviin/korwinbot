@@ -1,7 +1,7 @@
 {
   "name": "korwinbot",
   "version": "1.0.0",
-  "description": "It will be bot for stats, but seriously i don't know",
+  "description": "Open Source korwinbota",
   "main": "index.js",
   "dependencies": {
     "cache": "^2.3.1",
